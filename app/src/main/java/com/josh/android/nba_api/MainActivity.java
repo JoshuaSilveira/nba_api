@@ -2,6 +2,8 @@ package com.josh.android.nba_api;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -11,6 +13,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,6 +26,9 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
     private TextView txt;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     ArrayList<HashMap<String, String>> gameList;
 
@@ -45,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
 
-                            JSONArray scoreboard = new JSONArray();
+                       /*     JSONArray scoreboard = new JSONArray();
                         try {
                             scoreboard = response.getJSONArray("resultSets");
                         } catch (JSONException e) {
@@ -82,6 +88,24 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                         txt.setText("response : "+ gameID);
+                        */
+                        Gson g = new Gson();
+                        g.toJson(response.toString());
+
+                        com.josh.android.nba_api.Response egg = g.fromJson(response.toString(), com.josh.android.nba_api.Response.class);
+
+                        System.out.println(response.toString());
+                        HashMap<Integer,Game> games = egg.getResultSet().get(0).createGameHash();
+                        mRecyclerView = (RecyclerView)findViewById(R.id.my_recycler_view);
+
+                        mLayoutManager = new LinearLayoutManager(this);
+                        mRecyclerView.setLayoutManager(mLayoutManager);
+
+                        mAdapter = new MyAdapter(games);
+
+                        mRecyclerView.setAdapter(mAdapter);
+
+                        
 
 
                         //txt.setText();
