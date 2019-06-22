@@ -50,7 +50,7 @@ import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity implements MyAdapter.OnGameListener {
-
+//WTH
     private TextView mNoGames;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private String date="01/13/2019";
