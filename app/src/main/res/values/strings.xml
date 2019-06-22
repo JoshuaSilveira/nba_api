@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">nba_api</string>
+    <string name="activity2_name">Game Detail</string>
 </resources>

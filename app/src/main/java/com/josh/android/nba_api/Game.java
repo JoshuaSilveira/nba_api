@@ -1,6 +1,8 @@
 package com.josh.android.nba_api;
 
-public class Game {
+import java.io.Serializable;
+
+public class Game implements Serializable {
 
     private String GAME_DATE_EST;
     private String GAME_SEQUENCE;
