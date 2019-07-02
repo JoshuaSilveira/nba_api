@@ -1,6 +1,7 @@
 package com.josh.android.nba_api;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class TeamStatsBoxScore implements Serializable {
 
@@ -29,7 +30,41 @@ public class TeamStatsBoxScore implements Serializable {
     private String PF;
     private String PTS;
     private String PLUS_MINUS;
+    //private String[] statsArray;
+    
+    
+    public ArrayList<String> sendStatsArrayList(){
+        ArrayList<String> statsList = new ArrayList<>();
 
+        statsList.add(getGAME_ID());
+        statsList.add(getTEAM_ID());
+        statsList.add(getTEAM_NAME());
+        statsList.add(getTEAM_ABBREVIATION());
+        statsList.add(getTEAM_CITY());
+        statsList.add(getMIN());
+        statsList.add(getFGM());
+        statsList.add(getFGA());
+        statsList.add(getFG_PCT());
+        statsList.add(getFG3M());
+        statsList.add(getFG3A());
+        statsList.add(getFG3_PCT());
+        statsList.add(getFTM());
+        statsList.add(getFTA());
+        statsList.add(getFT_PCT());
+        statsList.add(getOREB());
+        statsList.add(getDREB());
+        statsList.add(getREB());
+        statsList.add(getAST());
+        statsList.add(getSTL());
+        statsList.add(getBLK());
+        statsList.add(getTO());
+        statsList.add(getPF());
+        statsList.add(getPTS());
+        statsList.add(getPLUS_MINUS());
+
+        return statsList;
+    }
+    
     public String getGAME_ID() {
         return GAME_ID;
     }

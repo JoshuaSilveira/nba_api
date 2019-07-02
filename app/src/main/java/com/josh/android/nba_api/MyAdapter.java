@@ -16,7 +16,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private OnGameListener mOnGameListener;
 
 
-    public MyAdapter(HashMap<String,Game> mGameMap, HashMap<String,LineScore> mScoreMap, OnGameListener onGameListener){
+    public MyAdapter(HashMap<String,Game> mGameMap,
+                     HashMap<String,LineScore> mScoreMap,
+                     OnGameListener onGameListener){
         scoreMap=mScoreMap;
         gameMap=mGameMap;
         keys  = new String[mGameMap.size()];

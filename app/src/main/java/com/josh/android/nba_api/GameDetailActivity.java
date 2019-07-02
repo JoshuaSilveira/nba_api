@@ -18,13 +18,16 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class GameDetailActivity extends AppCompatActivity {
     RequestQueue queue;
     String url;
     HashMap<String,TeamStatsBoxScore> teamStats;
+    HashMap<String,PlayerStatsBoxScore> playerStats;
     String[] keys;
+    String[] playerKeys;
     Gson g = new Gson();
     com.josh.android.nba_api.Response boxScore;
 
@@ -54,7 +57,7 @@ public class GameDetailActivity extends AppCompatActivity {
         fetch();
     }
 
-    private void setupViewPager(ViewPager viewPager,Bundle teamStatsBundle){
+    private void setupViewPager(ViewPager viewPager,Bundle teamStatsBundle, Bundle playerStatsBundle){
         SectionsStatePagerAdapter adapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
 
         TeamStatsFrag teamStatsFrag = new TeamStatsFrag();
@@ -62,7 +65,7 @@ public class GameDetailActivity extends AppCompatActivity {
         adapter.addFragment(teamStatsFrag,"Team Stats");
 
         PlayerStatsFrag playerStatsFrag = new PlayerStatsFrag();
-        //playerStatsFrag.setArguments(playerStatsBundle);
+        playerStatsFrag.setArguments(playerStatsBundle);
         adapter.addFragment(playerStatsFrag,"Player Stats");
 
         viewPager.setAdapter(adapter);
@@ -80,15 +83,31 @@ public class GameDetailActivity extends AppCompatActivity {
         public void onResponse(String response) {
             //Log.i("dog", response);
             boxScore = g.fromJson(response, com.josh.android.nba_api.Response.class);
+
             teamStats = boxScore.getResultSet().get(1).createTeamStatsBoxScore();
+            playerStats = boxScore.getResultSet().get(0).getPlayerStatsHashMap();
+
+
+
             keys=new String[teamStats.size()];
             teamStats.keySet().toArray(keys);
-            //Log.i("dog", teamStats.get(keys[1]).getTEAM_CITY());
+
+            playerKeys=new String[playerStats.size()];
+            playerStats.keySet().toArray(playerKeys);
+            //Log.i("dog", playerStats.get(playerKeys[0]).getPLAYER_NAME());
+            //Log.i("dog", playerStats.get(playerKeys[1]).getPLAYER_NAME());
+            //Log.i("dog", playerStats.get(playerKeys[2]).getPLAYER_NAME());
             Bundle teamStatsBundle = new Bundle();
 
             teamStatsBundle.putSerializable("home",teamStats.get(keys[0]));
             teamStatsBundle.putSerializable("away",teamStats.get(keys[1]));
-            setupViewPager(mViewPager,teamStatsBundle);
+            teamStatsBundle.putStringArray("headers",boxScore.getResultSet().get(1).getHeaders());
+
+            Bundle playerStatsBundle = new Bundle();
+            playerStatsBundle.putSerializable("players",playerStats);
+
+
+            setupViewPager(mViewPager,teamStatsBundle,playerStatsBundle);
 
 
         }

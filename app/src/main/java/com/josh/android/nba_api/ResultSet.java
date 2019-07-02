@@ -134,6 +134,41 @@ public class ResultSet {
         return teamMap;
     }
 
+    public HashMap<String, PlayerStatsBoxScore> getPlayerStatsHashMap() {
+        HashMap<String,PlayerStatsBoxScore> playerMap = new HashMap<>();
+            for(int i =0;i<rowSet.length;i++) {
+                PlayerStatsBoxScore newPlayerBoxScore = new PlayerStatsBoxScore();
+                newPlayerBoxScore.setGAME_ID(rowSet[i][0]);
+                newPlayerBoxScore.setTEAM_ID(rowSet[i][1]);
+                newPlayerBoxScore.setTEAM_ABBREVIATION(rowSet[i][2]);
+                newPlayerBoxScore.setTEAM_CITY(rowSet[i][3]);
+                newPlayerBoxScore.setPLAYER_ID(rowSet[i][4]);
+                newPlayerBoxScore.setPLAYER_NAME(rowSet[i][5]);
+                newPlayerBoxScore.setSTART_POSITION(rowSet[i][6]);
+                newPlayerBoxScore.setCOMMENT(rowSet[i][7]);
+                newPlayerBoxScore.setMIN(rowSet[i][8]);
+                newPlayerBoxScore.setFGM(rowSet[i][9]);
+                newPlayerBoxScore.setFGA(rowSet[i][10]);
+                newPlayerBoxScore.setFG_PCT(rowSet[i][11]);
+                newPlayerBoxScore.setFG3M(rowSet[i][12]);
+                newPlayerBoxScore.setFG3A(rowSet[i][13]);
+                newPlayerBoxScore.setFG3_PCT(rowSet[i][14]);
+                newPlayerBoxScore.setFTM(rowSet[i][15]);
+                newPlayerBoxScore.setFTA(rowSet[i][16]);
+                newPlayerBoxScore.setFT_PCT(rowSet[i][17]);
+                newPlayerBoxScore.setOREB(rowSet[i][18]);
+                newPlayerBoxScore.setDREB(rowSet[i][19]);
+                newPlayerBoxScore.setREB(rowSet[i][20]);
+                newPlayerBoxScore.setAST(rowSet[i][21]);
+                newPlayerBoxScore.setSTL(rowSet[i][22]);
+                newPlayerBoxScore.setBLK(rowSet[i][23]);
+                newPlayerBoxScore.setTO(rowSet[i][24]);
+                newPlayerBoxScore.setPF(rowSet[i][25]);
+                newPlayerBoxScore.setPTS(rowSet[i][26]);
+                newPlayerBoxScore.setPLUS_MINUS(rowSet[i][27]);
+                playerMap.put(rowSet[i][4],newPlayerBoxScore);
+            }
 
-
+        return playerMap;
+    }
 }
